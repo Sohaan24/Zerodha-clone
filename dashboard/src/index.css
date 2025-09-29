@@ -1,0 +1,438 @@
+:root {
+  --zerodha-blue: #387ed1;
+  --zerodha-blue-dark: #2b6cb0;
+  --zerodha-green: #00c781;
+  --zerodha-red: #f05757;
+  --zerodha-text: #44475b;
+  --zerodha-text-light: #666666;
+  --zerodha-border: #e6e6e6;
+  --zerodha-background: #f9f9f9;
+  --zerodha-white: #ffffff;
+  --zerodha-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--zerodha-font-family);
+  color: var(--zerodha-text);
+  background-color: var(--zerodha-background);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Top bar styles */
+.topbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background-color: var(--zerodha-white);
+  border-bottom: 1px solid var(--zerodha-border);
+  padding: 0 16px;
+}
+
+.indices-container {
+  display: flex;
+  gap: 20px;
+}
+
+.nifty, .sensex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.index {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.index-points {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.percent {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Menu styles */
+.menu-container {
+  width: 200px;
+  background-color: var(--zerodha-white);
+  border-right: 1px solid var(--zerodha-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-container {
+  padding: 16px;
+  border-bottom: 1px solid var(--zerodha-border);
+}
+
+.logo {
+  height: 20px;
+}
+
+.menus {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+.menus ul {
+  flex: 1;
+}
+
+.menus li {
+  padding: 0;
+}
+
+.menu {
+  display: block;
+  padding: 12px 16px;
+  color: var(--zerodha-text-light);
+  font-size: 15px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.menu:hover {
+  background-color: var(--zerodha-background);
+  color: var(--zerodha-text);
+}
+
+.menu.selected {
+  background-color: #f0f7ff;
+  color: var(--zerodha-blue);
+  border-left: 3px solid var(--zerodha-blue);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid var(--zerodha-border);
+  cursor: pointer;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--zerodha-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  margin-right: 12px;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.account-type {
+  font-size: 12px;
+  color: var(--zerodha-text-light);
+  margin: 0;
+}
+
+/* Watchlist styles */
+.watchlist-container {
+  width: 280px;
+  background-color: var(--zerodha-white);
+  border-left: 1px solid var(--zerodha-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.watchlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--zerodha-border);
+}
+
+.watchlist-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.search-container {
+  padding: 16px;
+  border-bottom: 1px solid var(--zerodha-border);
+}
+
+.search {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--zerodha-border);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.counts {
+  font-size: 12px;
+  color: var(--zerodha-text-light);
+}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.list li {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--zerodha-border);
+  position: relative;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item p {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+}
+
+.percent {
+  font-size: 13px;
+  margin-right: 4px;
+}
+
+.down {
+  color: var(--zerodha-red);
+}
+
+.up {
+  color: var(--zerodha-green);
+}
+
+.price {
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0 8px;
+}
+
+.actions button {
+  padding: 4px 8px;
+  margin: 0 2px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.buy {
+  background-color: var(--zerodha-blue);
+  color: white;
+}
+
+.sell {
+  background-color: var(--zerodha-red);
+  color: white;
+}
+
+.action {
+  background-color: var(--zerodha-border);
+  color: var(--zerodha-text-light);
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.chart-container {
+  padding: 16px;
+  border-top: 1px solid var(--zerodha-border);
+}
+
+/* Summary section styles */
+.summary-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.summary-header h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background-color: var(--zerodha-white);
+  border: 1px solid var(--zerodha-border);
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.summary-card-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--zerodha-border);
+}
+
+.summary-card-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.summary-data {
+  display: flex;
+  padding: 16px;
+}
+
+.summary-item {
+  flex: 1;
+}
+
+.summary-label {
+  font-size: 13px;
+  color: var(--zerodha-text-light);
+  margin: 0 0 8px 0;
+}
+
+.summary-value {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.summary-divider {
+  width: 1px;
+  background-color: var(--zerodha-border);
+  margin: 0 16px;
+}
+
+.profit {
+  color: var(--zerodha-green);
+}
+
+.loss {
+  color: var(--zerodha-red);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .menu-container {
+    width: 50px;
+  }
+  
+  .menu-text {
+    display: none;
+  }
+  
+  .watchlist-container {
+    width: 220px;
+  }
+  
+  .content {
+    padding: 12px;
+  }
+  
+  .summary-data {
+    flex-direction: column;
+  }
+  
+  .summary-divider {
+    width: 100%;
+    height: 1px;
+    margin: 16px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .topbar-container {
+    padding: 0 8px;
+  }
+  
+  .indices-container {
+    gap: 10px;
+  }
+  
+  .index, .index-points {
+    font-size: 12px;
+  }
+  
+  .percent {
+    font-size: 11px;
+  }
+  
+  .watchlist-container {
+    display: none;
+  }
+  
+  .menu-container {
+    display: none;
+  }
+}
