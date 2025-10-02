@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken") ;
 
 
 const cookieOptions = {
-  httpOnly: true, 
+  httpOnly: false, 
   secure: true,   
   sameSite: 'none', 
   
