@@ -1,5 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 function Universe(){
+     const navigate = useNavigate();
+     const handleSignupClick = () => {
+    
+        navigate('/signup');
+    };
     return(
         <>
             <div>
@@ -40,7 +46,7 @@ function Universe(){
                     </div>
                 </div>
             </div>
-            <button className='mt-4 btn btn-lg mb-5' style={{ backgroundColor: "#1984d7", color: "white" }}>Sign up for free</button>
+            <button className='mt-4 btn btn-lg mb-5' style={{ backgroundColor: "#1984d7", color: "white" }} onClick={handleSignupClick}>Sign up for free</button>
             
         </>
         
