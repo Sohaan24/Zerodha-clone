@@ -51,7 +51,7 @@ function Signup(){
       });
       setTimeout(() => {
         // Correctly redirect to the separate dashboard app
-        window.location.href = `${DASH_URL}/dashboard/summary`;
+        window.location.href = `${DASH_URL}/summary`;
       }, 1000);
     } else {
      
