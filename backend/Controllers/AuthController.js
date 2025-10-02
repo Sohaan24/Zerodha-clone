@@ -8,7 +8,7 @@ const cookieOptions = {
   httpOnly: true, 
   secure: true,   
   sameSite: 'none', 
-  domain: 'onrender.com' 
+  domain: '.onrender.com' 
 };
 module.exports.Signup = async (req, res, next)=>{
     try{
@@ -26,14 +26,14 @@ module.exports.Signup = async (req, res, next)=>{
              success : true,
               username : user.username
             }) ;
-        next() ;
+        
     }catch(error){
         console.error(error) ;
     }
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie("token", { domain: 'onrender.com', path: '/' });
+  res.clearCookie("token", { domain: '.onrender.com', path: '/' });
   return res.status(200).json({ status: true, message: "Logged out successfully" });
 }
 
