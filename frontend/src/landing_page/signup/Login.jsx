@@ -45,7 +45,7 @@ export default function Login(){
         handleSuccess(message);
         localStorage.setItem('username',username);
         setTimeout(()=>{
-               window.location.href = `${DASH_URL}/dashboard/summary` ;
+               window.location.href = `${DASH_URL}/dashboard/holdings` ;
             }, 1000) ;
       } else {
         handleError(message);
