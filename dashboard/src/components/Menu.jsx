@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "./UserContext";
 import "../index.css";
-const Menu = ({ username, onLogout }) => {
+const Menu = () => {
+  const { user, logout } = useUser(); 
+  const username = user?.username || "";
   const getInitial = (name) => {
     if (!name) return "U";
     return name
@@ -96,7 +99,7 @@ const Menu = ({ username, onLogout }) => {
           </div>
         </div>
       </div>
-      <button className="logout-button" onClick={onLogout}>
+      <button className="logout-button" onClick={logout}>
         Logout
       </button>
     </div>

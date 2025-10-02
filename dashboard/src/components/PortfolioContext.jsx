@@ -4,12 +4,12 @@ import { holdings, positions, orders } from '../data/data';
 const PortfolioContext = createContext();
 
 export const PortfolioProvider = ({ children }) => {
-  // Initialize state with dummy data
+  
   const [portfolioHoldings, setPortfolioHoldings] = useState(holdings);
   const [portfolioPositions, setPortfolioPositions] = useState(positions);
   const [portfolioOrders, setPortfolioOrders] = useState(orders);
 
-  // Generate unique order ID
+ 
   const generateOrderId = () => {
     const timestamp = Date.now();
     return `ORD${timestamp}`;
@@ -48,8 +48,7 @@ export const PortfolioProvider = ({ children }) => {
       mode: "BUY"
     });
 
-    // Always create a new holding entry (don't merge with existing)
-    // This allows multiple holdings of same stock with different prices
+    
     const newHolding = {
       name,
       qty,
@@ -77,7 +76,7 @@ export const PortfolioProvider = ({ children }) => {
       mode: "SELL"
     });
 
-    // Find all holdings of this stock
+    
     const stockHoldings = portfolioHoldings.filter(holding => holding.name === name);
     let remainingQtyToSell = qty;
 
@@ -86,22 +85,22 @@ export const PortfolioProvider = ({ children }) => {
         const updated = [...prev];
         let qtyLeftToSell = remainingQtyToSell;
         
-        // Sell from holdings in order (FIFO - First In, First Out)
+        
         for (let i = 0; i < updated.length && qtyLeftToSell > 0; i++) {
           if (updated[i].name === name) {
             const holding = updated[i];
             
             if (holding.qty <= qtyLeftToSell) {
-              // Complete sell of this holding
+             
               qtyLeftToSell -= holding.qty;
               updated.splice(i, 1);
-              i--; // Adjust index after removal
+              i--; 
             } else {
-              // Partial sell of this holding
+             
               updated[i] = {
                 ...holding,
                 qty: holding.qty - qtyLeftToSell,
-                price: price, // Update to current price
+                price: price, 
                 isLoss: price < holding.avg
               };
               qtyLeftToSell = 0;
