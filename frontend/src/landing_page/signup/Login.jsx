@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import {CssBaseline,Container, FormLabel, FormControl, Box, Button, Card, Typography, TextField, Stack, Paper } from '@mui/material' ;
 export default function Login(){
-    const navigate = useNavigate();
+
+  const API_URL = import.meta.env.VITE_API_URL;
+  const DASH_URL = import.meta.env.VITE_DASH_URL;
+    
     const [inputValue, setInputValue] = useState({
         mobileNumber : "",
         password : "",
@@ -30,7 +33,7 @@ export default function Login(){
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/login",
+        `${API_URL}/login`,
         {
           ...inputValue,
         },
@@ -41,7 +44,7 @@ export default function Login(){
       if (success) {
         handleSuccess(message);
         setTimeout(()=>{
-               window.location.href = "http://localhost:5174/dashboard/summary" ;
+               window.location.href = `${DASH_URL}/dashboard/summary` ;
             }, 1000) ;
       } else {
         handleError(message);

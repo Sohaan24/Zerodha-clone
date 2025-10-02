@@ -6,6 +6,8 @@ import {CssBaseline,Container, FormLabel, FormControl, Box, Button, Card, Typogr
 
 function Signup(){
     
+  const API_URL = import.meta.env.VITE_API_URL;
+  const DASH_URL = import.meta.env.VITE_DASH_URL;
     const [inputValue, setInputValue] = useState({
         mobileNumber: "",
         username : "",
@@ -32,7 +34,7 @@ function Signup(){
   e.preventDefault();
   try {
     const { data } = await axios.post(
-      "http://localhost:3002/signup",
+      `${API_URL}/signup`,
       {
         ...inputValue,
       },
@@ -49,7 +51,7 @@ function Signup(){
       });
       setTimeout(() => {
         // Correctly redirect to the separate dashboard app
-        window.location.href = "http://localhost:5174/summary";
+        window.location.href = `${DASH_URL}/summary`;
       }, 1000);
     } else {
      
