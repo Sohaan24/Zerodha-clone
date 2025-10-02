@@ -3,6 +3,13 @@ const { createSecretToken} = require("../util/SecretToken") ;
 const bcrypt = require("bcrypt") ;
 const jwt = require("jsonwebtoken") ;
 
+
+const cookieOptions = {
+  httpOnly: true, 
+  secure: true,   
+  sameSite: 'none', 
+  domain: 'onrender.com' 
+};
 module.exports.Signup = async (req, res, next)=>{
     try{
         const {mobileNumber, username, password, createdAt} = req.body ;
@@ -13,13 +20,7 @@ module.exports.Signup = async (req, res, next)=>{
 
         const user = await User.create({mobileNumber, username, password, createdAt}) ;
         const token = createSecretToken(user._id) ;
-        res.cookie("token", token,{
-            withCredentials :true,
-            httpOnly : false,
-            sameSite: 'none',
-            secure: true,
-            domain: '.onrender.com' 
-        });
+        res.cookie("token", token,cookieOptions);
         res.status(201).json({
             message : "User signed in successfully",
              success : true,
@@ -32,7 +33,7 @@ module.exports.Signup = async (req, res, next)=>{
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", { domain: 'onrender.com', path: '/' });
   return res.status(200).json({ status: true, message: "Logged out successfully" });
 }
 
@@ -53,10 +54,7 @@ module.exports.Login = async(req,res,next)=>{
             return res.json({message : "Incorrect Password"})
         }
         const token = createSecretToken(user._id);
-        res.cookie("token", token, {
-            withCredentials : true,
-            httpOnly : false,
-        });
+        res.cookie("token", token,cookieOptions);
         res.status(200).json({message : "User Logged in successfully",
              success : true,
              username : user.username

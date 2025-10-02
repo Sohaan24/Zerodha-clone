@@ -16,7 +16,8 @@ app.use(cors({
     "http://localhost:5173", // frontend app
     "http://localhost:5174", // dashboard app
     "https://full-stack-stock-trading-platform-poeo.onrender.com",
-    "https://full-stack-trading-platform-frontend-90ha.onrender.com"
+    "https://full-stack-trading-platform-frontend-90ha.onrender.com",
+    "https://full-stack-stock-trading-platform-mrmh.onrender.com"
   ],
   methods : ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials : true,
