@@ -1,6 +1,7 @@
 const User = require("../Models/UserModel") ;
 const { createSecretToken} = require("../util/SecretToken") ;
 const bcrypt = require("bcrypt") ;
+const jwt = require("jsonwebtoken") ;
 
 module.exports.Signup = async (req, res, next)=>{
     try{
@@ -15,8 +16,12 @@ module.exports.Signup = async (req, res, next)=>{
         res.cookie("token", token,{
             withCredentials :true,
             httpOnly : false,
+            sameSite: 'none',
+            secure: true,
+            domain: '.onrender.com' 
         });
-        res.status(201).json({message : "User signed in successfully",
+        res.status(201).json({
+            message : "User signed in successfully",
              success : true,
               username : user.username
             }) ;
@@ -61,3 +66,24 @@ module.exports.Login = async(req,res,next)=>{
         console.error(error);
     }
 }
+
+module.exports.verifyUser = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.json({ status: false });
+    }
+
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    const user = await User.findById(decoded.id);
+    
+    if (!user) {
+      return res.json({ status: false });
+    }
+
+    return res.json({ status: true, user: user.username });
+  } catch (error) {
+    console.error(error);
+    return res.json({ status: false });
+  }
+};

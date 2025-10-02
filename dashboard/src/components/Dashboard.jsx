@@ -16,7 +16,7 @@ import SellActionWindow from "./SellActionWindow";
 import Menu from "./Menu";
 import GeneralContext,{ GeneralContextProvider } from "./GeneralContext";
 import { PortfolioProvider } from "./PortfolioContext";
-import IsLoading from "./isLoading";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -25,48 +25,40 @@ const Dashboard = () => {
   const [username, setUsername] = useState("");
   const generalContext = useContext(GeneralContext);
   const { isSellWindowOpen, selectedStockUID } = generalContext || { isSellWindowOpen: false, selectedStockUID: "" };
-  const[isLoading, setIsLoading] = useState(true);
+
   
   console.log('Current location:', location.pathname);
   const apiUrl = import.meta.env.VITE_API_URL;
   const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
   useEffect(() => {
     const verifyCookie = async () => {
-      
       if (cookies.token) {
         try {
-         
           const { data } = await axios.get(
             `${apiUrl}/verify-user`,
-            { withCredentials: true }
+            { 
+              withCredentials: true,
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              }
+            }
           );
-          const { status, user } = data;
-          if (status) {
-            setUsername(user);
-            localStorage.setItem("username", user);
-          } else {
-            
-            removeCookie("token");
-            window.location.href = `${frontendUrl}/login`;
+          
+          if (data.status && data.user) {
+            setUsername(data.user);
+            localStorage.setItem('username', data.user);
           }
         } catch (error) {
-           const storedUsername = localStorage.getItem('username');
-           if (storedUsername) {
+          const storedUsername = localStorage.getItem('username');
+          if (storedUsername) {
             setUsername(storedUsername);
-          }else{
-          console.error("Cookie verification failed:", error);
-          
-          removeCookie("token");
-          window.location.href = `${frontendUrl}/login`;
           }
         }
-        finally {
-        setIsLoading(false); 
-      }
       }
     };
     verifyCookie();
-  }, [cookies.token, navigate, removeCookie, apiUrl, frontendUrl]);
+  }, [cookies.token, apiUrl]);
 
   const Logout = async () => {
   try {
@@ -82,11 +74,6 @@ const Dashboard = () => {
     window.location.href = `${frontendUrl}/login`;
   }
 };
-
-if(isLoading){
-  return <IsLoading/>
-}
-  
   return (
     <PortfolioProvider>
      <GeneralContextProvider>
