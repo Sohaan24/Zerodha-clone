@@ -31,6 +31,11 @@ export default function Login(){
 
      const handleSubmit = async (e) => {
     e.preventDefault();
+
+     if (!API_URL || !DASH_URL) {
+      handleError("VITE_API_URL or VITE_DASH_URL is not defined. Please check your .env file.");
+      return;
+    }
     try {
       const { data } = await axios.post(
         `${API_URL}/login`,
@@ -45,13 +50,20 @@ export default function Login(){
         handleSuccess(message);
         localStorage.setItem('username',username);
         setTimeout(()=>{
-               window.location.href = `${DASH_URL}/dashboard/holdings` ;
+               window.location.href = `${DASH_URL}/dashboard/summary` ;
             }, 1000) ;
       } else {
         handleError(message);
       }
     } catch (error) {
       console.log(error);
+      if (error.response) {
+        handleError(`Login failed: ${error.response.data.message || error.response.statusText}`);
+      } else if (error.request) {
+        handleError("Login failed: No response from server. Please check your connection and the API URL.");
+      } else {
+        handleError(`Login failed: ${error.message}`);
+      }
     }
     setInputValue({
       ...inputValue,
@@ -93,6 +105,7 @@ export default function Login(){
               <FormLabel htmlFor="mobileNumber">Mobile Number</FormLabel>
               <TextField
                 error={false}
+                id="mobileNumber"
                 type="text"
                 name="mobileNumber"
                 value={mobileNumber}
@@ -106,6 +119,7 @@ export default function Login(){
             <FormControl>
               <FormLabel htmlFor="password">Password</FormLabel>
               <TextField
+               id="password"
                 error={false}
                 name="password"
                 value={password}

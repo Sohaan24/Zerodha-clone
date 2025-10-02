@@ -32,6 +32,10 @@ function Signup(){
     
    const handleSubmit = async (e) => {
   e.preventDefault();
+  if (!API_URL || !DASH_URL) {
+      handleError("VITE_API_URL or VITE_DASH_URL is not defined. Please check your .env file.");
+      return;
+    }
   try {
     const { data } = await axios.post(
       `${API_URL}/signup`,
@@ -102,6 +106,7 @@ function Signup(){
           <FormControl>
               <FormLabel htmlFor="mobileNumber">Mobile Number</FormLabel>
               <TextField
+              id="mobileNumber"
                 error={false}
                 type="text"
                 name="mobileNumber"
@@ -116,6 +121,7 @@ function Signup(){
              <FormControl>
               <FormLabel htmlFor="username">Username</FormLabel>
               <TextField
+              id="username"
                 error={false}
                 name="username"
                 value = {username}
@@ -129,6 +135,7 @@ function Signup(){
              <FormControl>
               <FormLabel htmlFor="password">Password</FormLabel>
               <TextField
+                id="password" 
                 error={false}
                 name="password"
                 value = {password}
