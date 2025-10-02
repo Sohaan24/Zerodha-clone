@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -19,13 +18,12 @@ import { PortfolioProvider } from "./PortfolioContext";
 
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [cookies, , removeCookie] = useCookies(['token']);
   const [username, setUsername] = useState("");
   const generalContext = useContext(GeneralContext);
   const { isSellWindowOpen, selectedStockUID } = generalContext || { isSellWindowOpen: false, selectedStockUID: "" };
-
+  const [loading, setLoading] = useState(true);
   
   console.log('Current location:', location.pathname);
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -54,7 +52,11 @@ const Dashboard = () => {
           if (storedUsername) {
             setUsername(storedUsername);
           }
+        } finally {
+          setLoading(false); 
         }
+      }else {
+        setLoading(false); 
       }
     };
     verifyCookie();
@@ -74,6 +76,9 @@ const Dashboard = () => {
     window.location.href = `${frontendUrl}/login`;
   }
 };
+  if (loading) {
+    return <div>Loading...</div>; 
+  }
   return (
     <PortfolioProvider>
      <GeneralContextProvider>
