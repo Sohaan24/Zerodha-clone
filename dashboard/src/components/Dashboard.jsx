@@ -17,7 +17,6 @@ import Menu from "./Menu";
 import GeneralContext,{ GeneralContextProvider } from "./GeneralContext";
 import { PortfolioProvider } from "./PortfolioContext";
 
-
 const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,46 +26,56 @@ const Dashboard = () => {
   const { isSellWindowOpen, selectedStockUID } = generalContext || { isSellWindowOpen: false, selectedStockUID: "" };
   
   console.log('Current location:', location.pathname);
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
   useEffect(() => {
     const verifyCookie = async () => {
-      // Check if a token exists before attempting to verify it
+      
       if (cookies.token) {
         try {
-          // Changed to GET for better practice with cookie verification
+         
           const { data } = await axios.get(
-            "http://localhost:3002/verify-user",
+            `${apiUrl}/verify-user`,
             { withCredentials: true }
           );
           const { status, user } = data;
           if (status) {
             setUsername(user);
           } else {
-            // If backend says token is invalid, log out
+            
             removeCookie("token");
-            navigate("/login");
+            window.location.href = `${frontendUrl}/login`;
           }
         } catch (error) {
           console.error("Cookie verification failed:", error);
-          // If network error, assume token is invalid and log out
+          
           removeCookie("token");
-          navigate("/login");
+          window.location.href = `${frontendUrl}/login`;
         }
       }
     };
     verifyCookie();
   }, [cookies.token, navigate, removeCookie]);
 
-  const Logout = () => {
+  const Logout = async () => {
+  try {
+    await axios.get(`${apiUrl}/logout`, { withCredentials: true });
     removeCookie("token");
-    navigate("/signup");
-  };
+     window.location.href = `${frontendUrl}/login`;
+  } catch (error) {
+    console.error("Logout failed:", error);
+    
+    removeCookie("token");
+    navigate("/login");
+  }
+};
 
   
   return (
     <PortfolioProvider>
      <GeneralContextProvider>
     <div className="dashboard-container">
-      <Menu username={username} />
+      <Menu username={username} onLogout = {Logout} />
       
       <div className="content">
         <Routes>

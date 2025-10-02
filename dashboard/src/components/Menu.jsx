@@ -1,19 +1,21 @@
-import  { useState } from "react";
-
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
-const Menu = ({username}) => {
-  const getInitial = (name)=>{
-    if(!name) return "U";
-    return name.split(' ').map(word=> word.charAt(0).toUpperCase()).join('').slice(0,2);
-
-  }
+import "../index.css";
+const Menu = ({ username, onLogout }) => {
+  const getInitial = (name) => {
+    if (!name) return "U";
+    return name
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase())
+      .join("")
+      .slice(0, 2);
+  };
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
-    console.log('Menu clicked:', index);
+    console.log("Menu clicked:", index);
   };
 
   const handleProfileClick = () => {
@@ -22,7 +24,7 @@ const Menu = ({username}) => {
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
-  
+
   return (
     <div className="menu-container">
       <div className="logo-container">
@@ -93,6 +95,9 @@ const Menu = ({username}) => {
           </div>
         </div>
       </div>
+      <button className="logout-button" onClick={onLogout}>
+        Logout
+      </button>
     </div>
   );
 };

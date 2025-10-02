@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import {CssBaseline,Container, FormLabel, FormControl, Box, Button, Card, Typography, TextField, Stack, Paper } from '@mui/material' ;
 
 function Signup(){
-    const navigate = useNavigate() ;
+    
     const [inputValue, setInputValue] = useState({
         mobileNumber: "",
         username : "",
@@ -41,7 +41,7 @@ function Signup(){
     const { success, message } = data;
     if (success) {
       handleSuccess(message);
-      // Clear the form only on success
+      
       setInputValue({
         mobileNumber: "",
         username: "",
@@ -52,7 +52,7 @@ function Signup(){
         window.location.href = "http://localhost:5174/summary";
       }, 1000);
     } else {
-      // If the backend returns `success: false`, use its message
+     
       handleError(message);
     }
   } catch (error) {
@@ -61,7 +61,7 @@ function Signup(){
     if (error.response && error.response.data && error.response.data.message) {
       handleError(error.response.data.message);
     } else {
-      // Fallback for unexpected errors
+      
       handleError("An unexpected error occurred. Please try again.");
     }
   }

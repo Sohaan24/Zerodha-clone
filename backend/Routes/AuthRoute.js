@@ -1,4 +1,4 @@
-const {Signup, Login} = require("../Controllers/AuthController") ;
+const {Signup, Login, logout} = require("../Controllers/AuthController") ;
 const router = require("express").Router() ;
 const {userVerification} = require("../Middleware/AuthMiddleware") ;
 
@@ -18,5 +18,6 @@ router.get("/allposition",userVerification ,allPosition);
 router.post("/newOrder",userVerification ,newOrder);
 
 router.post("/sellStock",userVerification ,sellStock);
+router.get("/logout", logout);
 
 module.exports = router ;

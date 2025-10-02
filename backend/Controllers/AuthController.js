@@ -23,6 +23,11 @@ module.exports.Signup = async (req, res, next)=>{
     }
 };
 
+module.exports.logout = (req, res) => {
+  res.clearCookie("token");
+  return res.status(200).json({ status: true, message: "Logged out successfully" });
+}
+
 module.exports.Login = async(req,res,next)=>{
     try{
         const{mobileNumber, password} = req.body;

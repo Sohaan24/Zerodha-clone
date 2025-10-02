@@ -12,7 +12,7 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleBuyClick = () => {
     if (stockQuantity > 0 && stockPrice > 0) {
-      // Use portfolio context instead of API call
+      
       buyStock({
         name: uid,
         qty: parseInt(stockQuantity),
