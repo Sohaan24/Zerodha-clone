@@ -8,6 +8,7 @@ const cookieOptions = {
   httpOnly: false, 
   secure: true,   
   sameSite: 'none', 
+  domain: '.onrender.com'
   
 };
 module.exports.Signup = async (req, res, next)=>{
