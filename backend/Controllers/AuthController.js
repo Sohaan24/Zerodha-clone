@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken") ;
 
 
 const cookieOptions = {
-  httpOnly: false, 
+  httpOnly: true, 
   secure: true,   
   sameSite: 'none', 
-  domain: '.onrender.com' 
+  
 };
 module.exports.Signup = async (req, res, next)=>{
     try{
