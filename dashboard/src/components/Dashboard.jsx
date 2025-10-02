@@ -55,7 +55,7 @@ const Dashboard = () => {
       }
     };
     verifyCookie();
-  }, [cookies.token, navigate, removeCookie]);
+  }, [cookies.token, navigate, removeCookie, apiUrl, frontendUrl]);
 
   const Logout = async () => {
   try {
