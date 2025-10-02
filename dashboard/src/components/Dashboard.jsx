@@ -43,16 +43,22 @@ const Dashboard = () => {
           const { status, user } = data;
           if (status) {
             setUsername(user);
+            localStorage.setItem("username", user);
           } else {
             
             removeCookie("token");
             window.location.href = `${frontendUrl}/login`;
           }
         } catch (error) {
+           const storedUsername = localStorage.getItem('username');
+           if (storedUsername) {
+            setUsername(storedUsername);
+          }else{
           console.error("Cookie verification failed:", error);
           
           removeCookie("token");
           window.location.href = `${frontendUrl}/login`;
+          }
         }
         finally {
         setIsLoading(false); 
@@ -66,12 +72,14 @@ const Dashboard = () => {
   try {
     await axios.get(`${apiUrl}/logout`, { withCredentials: true });
     removeCookie("token");
+    localStorage.removeItem('username');
      window.location.href = `${frontendUrl}/login`;
   } catch (error) {
     console.error("Logout failed:", error);
     
     removeCookie("token");
-    navigate("/login");
+     localStorage.removeItem('username');
+    window.location.href = `${frontendUrl}/login`;
   }
 };
 

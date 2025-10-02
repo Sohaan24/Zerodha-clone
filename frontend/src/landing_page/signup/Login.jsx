@@ -19,7 +19,7 @@ export default function Login(){
         const {name, value} = e.target ;
         setInputValue({...inputValue, [name] : value,}) ;
     };
-
+    
     const handleError = (err) =>
     toast.error(err, {
       position: "bottom-left",
@@ -40,9 +40,10 @@ export default function Login(){
         { withCredentials: true }
       );
       console.log(data);
-      const { success, message } = data;
+      const { success, message, username } = data;
       if (success) {
         handleSuccess(message);
+        localStorage.setItem('username',username);
         setTimeout(()=>{
                window.location.href = `${DASH_URL}/dashboard/summary` ;
             }, 1000) ;
