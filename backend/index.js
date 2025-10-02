@@ -17,7 +17,7 @@ const allowedOrigins = [
   "http://localhost:5174", // dashboard app
   "https://full-stack-stock-trading-platform-poeo.onrender.com",
   "https://full-stack-trading-platform-frontend-90ha.onrender.com",
- 
+ "https://full-stack-stock-trading-platform-mrmh.onrender.com",
   
 ];
 app.use(
