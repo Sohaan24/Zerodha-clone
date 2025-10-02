@@ -16,6 +16,7 @@ import SellActionWindow from "./SellActionWindow";
 import Menu from "./Menu";
 import GeneralContext,{ GeneralContextProvider } from "./GeneralContext";
 import { PortfolioProvider } from "./PortfolioContext";
+import IsLoading from "./isLoading";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [username, setUsername] = useState("");
   const generalContext = useContext(GeneralContext);
   const { isSellWindowOpen, selectedStockUID } = generalContext || { isSellWindowOpen: false, selectedStockUID: "" };
+  const[isLoading, setIsLoading] = useState(true);
   
   console.log('Current location:', location.pathname);
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -52,6 +54,9 @@ const Dashboard = () => {
           removeCookie("token");
           window.location.href = `${frontendUrl}/login`;
         }
+        finally {
+        setIsLoading(false); 
+      }
       }
     };
     verifyCookie();
@@ -70,6 +75,9 @@ const Dashboard = () => {
   }
 };
 
+if(isLoading){
+  return <IsLoading/>
+}
   
   return (
     <PortfolioProvider>

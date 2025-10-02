@@ -12,6 +12,7 @@ const Menu = ({ username, onLogout }) => {
   };
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
